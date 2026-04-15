@@ -1,0 +1,57 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_paystack/flutter_paystack.dart';
+import 'package:frezka/main.dart';
+import 'package:nb_utils/nb_utils.dart';
+
+import '../../utils/constants.dart';
+import '../../utils/custom_toast_widget.dart';
+
+class PayStackService {
+  late BuildContext ctx;
+  PaystackPlugin paystackPlugin = PaystackPlugin();
+  num totalAmount = 0;
+  String paystackPaymentPublicKey = getStringAsync(PaymentKeys.PAY_STACK_PUBLIC_KEY);
+  String userEmail = "";
+  late Function(Map<String, dynamic>) onComplete;
+
+  init({
+    required BuildContext context,
+    required num totalAmount,
+    required Function(Map<String, dynamic>) onComplete,
+  }) {
+    paystackPlugin.initialize(publicKey: paystackPaymentPublicKey);
+    this.ctx = context;
+    this.userEmail = userStore.userEmail;
+    this.totalAmount = totalAmount;
+    this.onComplete = onComplete;
+  }
+
+  Future checkout() async {
+    int price = totalAmount.toInt() * 100;
+    Charge charge = Charge()
+      ..amount = price
+      ..reference = 'ref_${DateTime.now().millisecondsSinceEpoch}'
+      ..email = userEmail
+      ..currency = appStore.currencyCode;
+
+    CheckoutResponse response = await paystackPlugin.checkout(
+      ctx,
+      method: CheckoutMethod.card,
+      charge: charge,
+    );
+
+    log('Response: $response');
+
+    if (response.status == true) {
+      log('Response $response');
+
+      onComplete.call({
+        'transaction_id': response.reference.validate(),
+      });
+
+      log('Payment was successful. Ref: ${response.reference}');
+    } else {
+      ShowToast.showError(response.message);
+    }
+  }
+}
