@@ -72,7 +72,7 @@ class UserData {
       password: json['password'],
       userType: json['user_type'],
       profileImage: json['profile_image'],
-      referralCode: json['referralCode'],
+      referralCode: json['referral_code'],
     );
   }
 
@@ -102,7 +102,7 @@ class UserData {
       data['user_role'] = this.userRole;
     }
     if (this.referralCode != null) {
-      data['referralCode'] = this.referralCode;
+      data['referral_code'] = this.referralCode;
     }
     return data;
   }
