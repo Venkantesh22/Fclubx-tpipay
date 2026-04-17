@@ -78,5 +78,5 @@ class APIEndPoints {
   static final String withdrawMoney = 'withdraw-money';
   static final String walletHistory = 'wallet-history';
   static final String referral = 'my-referral';
-  static final String getDataReferral = 'apply-referral';
+  static final String applyReferralCode = 'apply-referral';
 }

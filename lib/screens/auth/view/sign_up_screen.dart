@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frezka/main.dart';
+import 'package:frezka/network/rest_apis.dart';
 import 'package:frezka/screens/auth/auth_repository.dart';
 import 'package:frezka/screens/branch/view/select_branch_screen.dart';
 import 'package:frezka/utils/common_base.dart';
@@ -117,8 +118,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
             CommonKey.password: widget.phoneNumber.validate().trim(),
           };
 
-          await loginUser(loginRequest).then((loginValue) {
+          await loginUser(loginRequest).then((loginValue) async {
+            try {
+              print("Check --- 1");
+              if (referralCode.text.trim().isNotEmpty) {
+                Map applyReferralCode = {
+                  "referral_code": referralCode.text.trim(),
+                };
+
+                print("Applying referral: $applyReferralCode");
+
+                await postGetReferralDateApi(request: applyReferralCode);
+
+                print("Referral applied successfully");
+              }
+            } catch (e) {
+              print("Referral error: $e");
+            }
             appStore.setLoading(false);
+
             ShowToast.showSuccess(register.message ?? locale.successful);
             onLoginSuccessRedirection();
           }).catchError((loginError) {
@@ -180,8 +198,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
             CommonKey.email: email,
             CommonKey.password: password,
           };
+          
 
-          await loginUser(request).then((value) {
+          await loginUser(request).then((value) async {
+            try {
+            print("Check --- 1");
+            if (referralCode.text.trim().isNotEmpty) {
+              Map applyReferralCode = {
+                "referral_code": referralCode.text.trim(),
+              };
+
+              print("Applying referral: $applyReferralCode");
+
+              await postGetReferralDateApi(request: applyReferralCode);
+
+              print("Referral applied successfully");
+            }
+          } catch (e) {
+            print("Referral error: $e");
+          }
             ShowToast.showSuccess(
                 registerResponse.message ?? locale.successful);
             onLoginSuccessRedirection();

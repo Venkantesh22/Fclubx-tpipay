@@ -449,8 +449,10 @@ Future<ReferralModel> getMyReferralAPI() async {
 }
 
 Future<dynamic> postGetReferralDateApi({required Map request}) async {
+                print("check --2 ");
+
   return await handleResponse(await buildHttpResponse(
-      APIEndPoints.getDataReferral,
+      APIEndPoints.applyReferralCode,
       request: request,
       method: HttpMethodType.POST));
 }

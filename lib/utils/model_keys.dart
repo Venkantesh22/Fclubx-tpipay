@@ -13,6 +13,7 @@ class CommonKey {
   static String contactNumber = 'contact_number';
   static String gender = 'gender';
   static String bookingId = 'booking_id';
+  static String referralCode = 'referral_code';
   
 }
 
