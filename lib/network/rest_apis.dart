@@ -448,13 +448,6 @@ Future<ReferralModel> getMyReferralAPI() async {
   return ReferralModel.fromJson(res['data']); // 🔥 FIX HERE
 }
 
-Future<dynamic> postGetReferralDateApi({required Map request}) async {
-                print("check --2 ");
 
-  return await handleResponse(await buildHttpResponse(
-      APIEndPoints.applyReferralCode,
-      request: request,
-      method: HttpMethodType.POST));
-}
 
 //endregion

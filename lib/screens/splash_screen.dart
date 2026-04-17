@@ -130,7 +130,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Container(
           padding: EdgeInsets.all(16),
           decoration: boxDecorationDefault(shape: BoxShape.circle),
-          child: Image.asset(logo_gif, height: 150, width: 150, fit: BoxFit.cover),
+          child: Image.asset(app_logo, height: 140, width: 140, fit: BoxFit.cover),
         ).center(),
       ),
     );

@@ -119,22 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           };
 
           await loginUser(loginRequest).then((loginValue) async {
-            try {
-              print("Check --- 1");
-              if (referralCode.text.trim().isNotEmpty) {
-                Map applyReferralCode = {
-                  "referral_code": referralCode.text.trim(),
-                };
-
-                print("Applying referral: $applyReferralCode");
-
-                await postGetReferralDateApi(request: applyReferralCode);
-
-                print("Referral applied successfully");
-              }
-            } catch (e) {
-              print("Referral error: $e");
-            }
+            
             appStore.setLoading(false);
 
             ShowToast.showSuccess(register.message ?? locale.successful);
@@ -201,22 +186,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           
 
           await loginUser(request).then((value) async {
-            try {
-            print("Check --- 1");
-            if (referralCode.text.trim().isNotEmpty) {
-              Map applyReferralCode = {
-                "referral_code": referralCode.text.trim(),
-              };
-
-              print("Applying referral: $applyReferralCode");
-
-              await postGetReferralDateApi(request: applyReferralCode);
-
-              print("Referral applied successfully");
-            }
-          } catch (e) {
-            print("Referral error: $e");
-          }
+          
+           
             ShowToast.showSuccess(
                 registerResponse.message ?? locale.successful);
             onLoginSuccessRedirection();
