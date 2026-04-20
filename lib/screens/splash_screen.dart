@@ -135,11 +135,19 @@ class _SplashScreenState extends State<SplashScreen> {
         height: context.height(),
         width: context.width(),
         child: Container(
-          clipBehavior: Clip.antiAlias,
-          padding: EdgeInsets.all(16),
           decoration: boxDecorationDefault(shape: BoxShape.circle),
-          child:
-              Image.asset(app_logo, height: 140, width: 140, fit: BoxFit.cover),
+          child: Container(
+            height: 120,
+            width: 120,
+            decoration: BoxDecoration(
+              border: Border.all(width: 2, color: white),
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage(app_logo), // ✅ correct
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
         ).center(),
       ),
     );
