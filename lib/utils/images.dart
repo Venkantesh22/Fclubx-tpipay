@@ -1,4 +1,5 @@
 const app_logo = "assets/app_logo.png";
+const app_logo_with_bg = "assets/fclubxwithbg.png";
 const walk_img1 = 'assets/images/walk_img_1.png';
 const walk_img2 = 'assets/images/walk_img_2.png';
 const walk_img3 = 'assets/images/walk_img_3.png';

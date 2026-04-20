@@ -28,9 +28,18 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
 
   void init() async {
     setStatusBarColor(primaryColor);
-    pages.add(WalkThroughModel(title: () => locale.findYourNearestSalon, subTitle: () => locale.walkThrough1subTitle, img: () => walk_img1));
-    pages.add(WalkThroughModel(title: () => locale.pickAService, subTitle: () => locale.walkThrough2subTitle, img: () => walk_img2));
-    pages.add(WalkThroughModel(title: () => '${locale.quickBooking} $APP_NAME', subTitle: () => locale.walkThrough3subTitle, img: () => walk_img3));
+    pages.add(WalkThroughModel(
+        title: () => locale.findYourNearestSalon,
+        subTitle: () => locale.walkThrough1subTitle,
+        img: () => walk_img1));
+    pages.add(WalkThroughModel(
+        title: () => locale.pickAService,
+        subTitle: () => locale.walkThrough2subTitle,
+        img: () => walk_img2));
+    pages.add(WalkThroughModel(
+        title: () => '${locale.quickBooking} $APP_NAME',
+        subTitle: () => locale.walkThrough3subTitle,
+        img: () => walk_img3));
   }
 
   @override
@@ -51,27 +60,39 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
               decoration: boxDecorationWithRoundedCorners(
                 backgroundColor: primaryColor,
                 borderRadius: radiusOnly(bottomLeft: 20, bottomRight: 20),
-                decorationImage: DecorationImage(image: AssetImage(bg_pattern), fit: BoxFit.cover),
+                decorationImage: DecorationImage(
+                    image: AssetImage(bg_pattern), fit: BoxFit.cover),
               ),
             ),
             Column(
               children: [
                 24.height,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Stack(
+                  alignment: Alignment.center,
                   children: [
-                    Spacer(),
-                    Text(APP_NAME, style: boldTextStyle(size: 20, color: white)).expand(),
-                    Align(
-                      alignment: Alignment.centerRight,
+                    Center(
+                      child: Image.asset(
+                        app_logo_with_bg,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
                       child: TextButton(
                         onPressed: () async {
-                          await setValue(SharedPreferenceConst.IS_FIRST_TIME, false);
-                          SelectBranchScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+                          await setValue(
+                              SharedPreferenceConst.IS_FIRST_TIME, false);
+                          SelectBranchScreen().launch(context,
+                              isNewTask: true,
+                              pageRouteAnimation: PageRouteAnimation.Fade);
                         },
-                        child: Text(currentPosition == 2 ? "" : locale.skip, style: boldTextStyle(color: white)),
+                        child: Text(
+                          currentPosition == 2 ? "" : locale.skip,
+                          style: boldTextStyle(color: white),
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 8.height,
@@ -81,7 +102,8 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                   child: PageView(
                     controller: pageController,
                     children: pages.map((e) {
-                      return Image.asset(e.img.call().validate(), height: context.height() * 0.5, fit: BoxFit.cover)
+                      return Image.asset(e.img.call().validate(),
+                              height: context.height() * 0.5, fit: BoxFit.cover)
                           .cornerRadiusWithClipRRect(defaultRadius)
                           .paddingSymmetric(horizontal: 16);
                     }).toList(),
@@ -92,21 +114,33 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                   ),
                 ),
                 38.height,
-                Text(pages[currentPosition].title.call().validate(), style: boldTextStyle(size: LABEL_TEXT_SIZE)).paddingSymmetric(horizontal: 16),
+                Text(pages[currentPosition].title.call().validate(),
+                        style: boldTextStyle(size: LABEL_TEXT_SIZE))
+                    .paddingSymmetric(horizontal: 16),
                 16.height,
-                Text(pages[currentPosition].subTitle.call().validate(), style: secondaryTextStyle(), textAlign: TextAlign.center).paddingSymmetric(horizontal: 16),
+                Text(pages[currentPosition].subTitle.call().validate(),
+                        style: secondaryTextStyle(),
+                        textAlign: TextAlign.center)
+                    .paddingSymmetric(horizontal: 16),
                 24.height,
                 AppButton(
-                  child: Text(currentPosition == 2 ? locale.getStarted : locale.next, style: boldTextStyle(color: white)),
+                  child: Text(
+                      currentPosition == 2 ? locale.getStarted : locale.next,
+                      style: boldTextStyle(color: white)),
                   width: 230,
                   elevation: 0,
                   color: secondaryColor,
                   onTap: () async {
                     if (currentPosition == 2) {
-                      await setValue(SharedPreferenceConst.IS_FIRST_TIME, false);
-                      SelectBranchScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+                      await setValue(
+                          SharedPreferenceConst.IS_FIRST_TIME, false);
+                      SelectBranchScreen().launch(context,
+                          isNewTask: true,
+                          pageRouteAnimation: PageRouteAnimation.Fade);
                     } else {
-                      pageController.nextPage(duration: 500.milliseconds, curve: Curves.linearToEaseOut);
+                      pageController.nextPage(
+                          duration: 500.milliseconds,
+                          curve: Curves.linearToEaseOut);
                     }
                   },
                 ),
