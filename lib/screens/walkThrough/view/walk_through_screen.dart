@@ -73,8 +73,8 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                     Center(
                       child: Image.asset(
                         app_logo_with_bg,
-                        height: 100,
-                        fit: BoxFit.cover,
+                        height: 80,
+                        fit: BoxFit.contain,
                       ),
                     ),
                     Positioned(

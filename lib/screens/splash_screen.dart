@@ -66,12 +66,12 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     await getBranchList(branchList: []).then((value) {
-      
       if (value.isNotEmpty) {
         if (value.length == 1) {
           setBranchAndRedirectToDashboard(value.first);
         } else {
-          bool isIdAvailable = value.any((element) => element.id.toString() == appStore.branchId.toString());
+          bool isIdAvailable = value.any((element) =>
+              element.id.toString() == appStore.branchId.toString());
           if (!isIdAvailable && appStore.branchId != UNSELECTED_BRANCH_ID) {
             appStore.setBranchId(UNSELECTED_BRANCH_ID);
           }
@@ -79,7 +79,8 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     }).catchError((e) {
       /// When error occurs in Branch List API
-      push(NoBranchErrorWidget(errorMessage: e.toString()), isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+      push(NoBranchErrorWidget(errorMessage: e.toString()),
+          isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
     });
 
     int themeModeIndex = getIntAsync(THEME_MODE_INDEX);
@@ -89,15 +90,20 @@ class _SplashScreenState extends State<SplashScreen> {
       appStore.setDarkMode(true);
     }
 
-    bool isFirstTime = getBoolAsync(SharedPreferenceConst.IS_FIRST_TIME, defaultValue: true);
+    bool isFirstTime =
+        getBoolAsync(SharedPreferenceConst.IS_FIRST_TIME, defaultValue: true);
 
     ///Set app configurations
     getAppConfigurations().then((value) async {
-      final String? adminLang = appConfigurationResponseCached?.applicationLanguage;
+      final String? adminLang =
+          appConfigurationResponseCached?.applicationLanguage;
       if (adminLang != null && adminLang.isNotEmpty) {
         final localeToApply = Locale(adminLang);
-        final bool isSupported = const AppLocalizations().isSupported(localeToApply);
-        if (isSupported && appStore.selectedLanguageCode != adminLang && isFirstTime) {
+        final bool isSupported =
+            const AppLocalizations().isSupported(localeToApply);
+        if (isSupported &&
+            appStore.selectedLanguageCode != adminLang &&
+            isFirstTime) {
           await appStore.setLanguage(adminLang);
         }
       }
@@ -116,7 +122,8 @@ class _SplashScreenState extends State<SplashScreen> {
     } else if (appStore.isBranchSelected) {
       DashboardScreen().launch(context, isNewTask: true);
     } else {
-      SelectBranchScreen(isFromDashboard: true).launch(context, isNewTask: true);
+      SelectBranchScreen(isFromDashboard: true)
+          .launch(context, isNewTask: true);
     }
   }
 
@@ -128,9 +135,11 @@ class _SplashScreenState extends State<SplashScreen> {
         height: context.height(),
         width: context.width(),
         child: Container(
+          clipBehavior: Clip.antiAlias,
           padding: EdgeInsets.all(16),
           decoration: boxDecorationDefault(shape: BoxShape.circle),
-          child: Image.asset(app_logo, height: 140, width: 140, fit: BoxFit.cover),
+          child:
+              Image.asset(app_logo, height: 140, width: 140, fit: BoxFit.cover),
         ).center(),
       ),
     );
