@@ -119,7 +119,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           };
 
           await loginUser(loginRequest).then((loginValue) async {
-            
             appStore.setLoading(false);
 
             ShowToast.showSuccess(register.message ?? locale.successful);
@@ -183,11 +182,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             CommonKey.email: email,
             CommonKey.password: password,
           };
-          
 
           await loginUser(request).then((value) async {
-          
-           
             ShowToast.showSuccess(
                 registerResponse.message ?? locale.successful);
             onLoginSuccessRedirection();
@@ -250,11 +246,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Positioned(
                     bottom: -60,
                     child: Container(
+                      height: 104,
+                      width: 104,
                       padding: EdgeInsets.all(16),
-                      decoration: boxDecorationDefault(shape: BoxShape.circle),
-                      child: Image.asset(app_logo,
-                          height: 104, width: 104, fit: BoxFit.cover),
-                    ).center(),
+                      decoration: boxDecorationDefault(
+                        border: Border.all(width: 2, color: white),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage(app_logo), // ✅ correct
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    //   child: Image.asset(app_logo,
+                    //       height: 104, width: 104, fit: BoxFit.cover),
+                    // ).center(),
                   ),
                 ],
               ),

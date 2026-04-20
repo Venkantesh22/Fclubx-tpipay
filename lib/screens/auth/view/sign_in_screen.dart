@@ -210,11 +210,21 @@ class _SignInScreenState extends State<SignInScreen> {
                   Positioned(
                     bottom: -60,
                     child: Container(
+                      height: 104,
+                      width: 104,
                       padding: EdgeInsets.all(16),
-                      decoration: boxDecorationDefault(shape: BoxShape.circle),
-                      child: Image.asset(app_logo,
-                          height: 104, width: 104, fit: BoxFit.cover),
-                    ).center(),
+                      decoration: boxDecorationDefault(
+                        border: Border.all(width: 2, color: white),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage(app_logo), // ✅ correct
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    //   child: Image.asset(app_logo,
+                    //       height: 104, width: 104, fit: BoxFit.cover),
+                    // ).center(),
                   ),
                   Positioned(
                     top: context.statusBarHeight + 16,
