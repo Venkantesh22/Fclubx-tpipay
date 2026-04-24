@@ -10,7 +10,7 @@ import 'package:frezka/screens/dashboard/component/common_app_component.dart';
 import 'package:frezka/screens/dashboard/component/wallet_history.dart';
 import 'package:frezka/screens/dashboard/view/dashboard_screen.dart';
 import 'package:frezka/screens/profile/view/about_detail_screen.dart';
-import 'package:frezka/screens/profile/view/invite_and_earn_screen.dart';
+import 'package:frezka/screens/profile/view/invite_and_earn/invite_and_earn_screen.dart';
 import 'package:frezka/screens/profile/view/setting_screen.dart';
 import 'package:frezka/utils/common_base.dart';
 import 'package:frezka/utils/constants.dart';
@@ -424,7 +424,7 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                                 boldTextStyle(size: LABEL_TEXT_SIZE),
                             subTitle: locale.seeYourOrders,
                             leading: Image(
-                                image: AssetImage(Assets.iconsIcOrders),
+                                image: AssetImage(Assets.iconsIcOrder),
                                 height: 20,
                                 color: iconColor),
                             decoration: boxDecorationWithRoundedCorners(

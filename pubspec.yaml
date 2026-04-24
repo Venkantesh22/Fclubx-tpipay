@@ -1,7 +1,7 @@
 name: frezka
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
@@ -30,7 +30,6 @@ dependencies:
   # State Management
   mobx: ^2.5.0
   flutter_mobx: ^2.3.0
-
 
   # FIREBASE
   firebase_crashlytics: ^5.0.6
@@ -116,3 +115,10 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/lottie/
+    - assets/svg/
+
+flutter_assets:
+  assets_path: assets/
+  output_path: lib/generated/
+  filename: assets.dart
+  field_prefix:

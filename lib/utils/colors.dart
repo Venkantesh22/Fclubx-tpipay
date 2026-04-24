@@ -82,3 +82,4 @@ const appButtonColorDark = Color(0xFF282828);
 const scaffoldSecondaryDark = Color(0xFF1C1F26);
 const charcoalColor = Color(0xFF333333);
 const priceDarkColor = Color(0xFF64B5F6);
+const blackText = Color(0xFF1A1B20);
