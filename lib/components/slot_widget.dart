@@ -51,11 +51,13 @@ class _SlotWidgetState extends State<SlotWidget> {
     if (widget.isFromBooking) {
       List<SlotData> apiSlots = [];
 
-      if (widget.workingHour?.availableSlots != null && widget.workingHour!.availableSlots!.isNotEmpty) {
+      if (widget.workingHour?.availableSlots != null &&
+          widget.workingHour!.availableSlots!.isNotEmpty) {
         for (var apiSlot in widget.workingHour!.availableSlots!) {
           try {
             SlotData slotData = SlotData();
-            DateTime parsed = DateFormat("yyyy-MM-dd HH:mm:ss").parse(apiSlot.value!);
+            DateTime parsed =
+                DateFormat("yyyy-MM-dd HH:mm:ss").parse(apiSlot.value!);
             slotData.startTime = DateFormat("HH:mm").format(parsed);
             slotData.previousTimeSlot = parsed;
 
@@ -83,8 +85,10 @@ class _SlotWidgetState extends State<SlotWidget> {
 
         DateTime temp = widget.selectedHorizontalDate;
 
-        startTimeString = '${temp.year}-${temp.month.toString().padLeft(2, '0')}-${temp.day.toString().padLeft(2, '0')} $startTimeString';
-        endTimeString = '${temp.year}-${temp.month.toString().padLeft(2, '0')}-${temp.day.toString().padLeft(2, '0')} $endTimeString';
+        startTimeString =
+            '${temp.year}-${temp.month.toString().padLeft(2, '0')}-${temp.day.toString().padLeft(2, '0')} $startTimeString';
+        endTimeString =
+            '${temp.year}-${temp.month.toString().padLeft(2, '0')}-${temp.day.toString().padLeft(2, '0')} $endTimeString';
 
         DateTime startTime = DateTime.parse(startTimeString);
         DateTime endTime = DateTime.parse(endTimeString);
@@ -99,14 +103,20 @@ class _SlotWidgetState extends State<SlotWidget> {
 
           if (widget.workingHour?.breaks != null) {
             for (BranchBreaks breakTime in widget.workingHour!.breaks!) {
-              if (breakTime.startBreak.validate().isNotEmpty && breakTime.endBreak.validate().isNotEmpty) {
-                DateTime breakStart = DateFormat("HH:mm").parse(breakTime.startBreak!);
-                DateTime breakEnd = DateFormat("HH:mm").parse(breakTime.endBreak!);
+              if (breakTime.startBreak.validate().isNotEmpty &&
+                  breakTime.endBreak.validate().isNotEmpty) {
+                DateTime breakStart =
+                    DateFormat("HH:mm").parse(breakTime.startBreak!);
+                DateTime breakEnd =
+                    DateFormat("HH:mm").parse(breakTime.endBreak!);
 
-                breakStart = DateTime(startTime.year, startTime.month, startTime.day, breakStart.hour, breakStart.minute);
-                breakEnd = DateTime(startTime.year, startTime.month, startTime.day, breakEnd.hour, breakEnd.minute);
+                breakStart = DateTime(startTime.year, startTime.month,
+                    startTime.day, breakStart.hour, breakStart.minute);
+                breakEnd = DateTime(startTime.year, startTime.month,
+                    startTime.day, breakEnd.hour, breakEnd.minute);
 
-                if (startTime.isBefore(breakEnd) && startTime.add(duration).isAfter(breakStart)) {
+                if (startTime.isBefore(breakEnd) &&
+                    startTime.add(duration).isAfter(breakStart)) {
                   isInBreak = true;
                   break;
                 }
@@ -116,7 +126,8 @@ class _SlotWidgetState extends State<SlotWidget> {
 
           if (!isInBreak) {
             SlotData slotData = SlotData();
-            slotData.startTime = formatDate(startTime.toString(), format: DateFormatConst.HOUR_24_FORMAT);
+            slotData.startTime = formatDate(startTime.toString(),
+                format: DateFormatConst.HOUR_24_FORMAT);
             slotData.previousTimeSlot = startTime;
 
             int hour = startTime.hour;
@@ -146,8 +157,10 @@ class _SlotWidgetState extends State<SlotWidget> {
 
     DateTime temp = widget.selectedHorizontalDate;
 
-    startTimeString = '${temp.year}-${temp.month.toString().padLeft(2, '0')}-${temp.day.toString().padLeft(2, '0')} $startTimeString';
-    endTimeString = '${temp.year}-${temp.month.toString().padLeft(2, '0')}-${temp.day.toString().padLeft(2, '0')} $endTimeString';
+    startTimeString =
+        '${temp.year}-${temp.month.toString().padLeft(2, '0')}-${temp.day.toString().padLeft(2, '0')} $startTimeString';
+    endTimeString =
+        '${temp.year}-${temp.month.toString().padLeft(2, '0')}-${temp.day.toString().padLeft(2, '0')} $endTimeString';
 
     DateTime startTime = DateTime.parse(startTimeString);
     DateTime endTime = DateTime.parse(endTimeString);
@@ -161,14 +174,19 @@ class _SlotWidgetState extends State<SlotWidget> {
 
       if (widget.workingHour?.breaks != null) {
         for (BranchBreaks breakTime in widget.workingHour!.breaks!) {
-          if (breakTime.startBreak.validate().isNotEmpty && breakTime.endBreak.validate().isNotEmpty) {
-            DateTime breakStart = DateFormat("HH:mm").parse(breakTime.startBreak!);
+          if (breakTime.startBreak.validate().isNotEmpty &&
+              breakTime.endBreak.validate().isNotEmpty) {
+            DateTime breakStart =
+                DateFormat("HH:mm").parse(breakTime.startBreak!);
             DateTime breakEnd = DateFormat("HH:mm").parse(breakTime.endBreak!);
 
-            breakStart = DateTime(startTime.year, startTime.month, startTime.day, breakStart.hour, breakStart.minute);
-            breakEnd = DateTime(startTime.year, startTime.month, startTime.day, breakEnd.hour, breakEnd.minute);
+            breakStart = DateTime(startTime.year, startTime.month,
+                startTime.day, breakStart.hour, breakStart.minute);
+            breakEnd = DateTime(startTime.year, startTime.month, startTime.day,
+                breakEnd.hour, breakEnd.minute);
 
-            if (startTime.isBefore(breakEnd) && startTime.add(duration).isAfter(breakStart)) {
+            if (startTime.isBefore(breakEnd) &&
+                startTime.add(duration).isAfter(breakStart)) {
               isInBreak = true;
               break;
             }
@@ -178,7 +196,8 @@ class _SlotWidgetState extends State<SlotWidget> {
 
       if (!isInBreak) {
         SlotData slotData = SlotData();
-        slotData.startTime = formatDate(startTime.toString(), format: DateFormatConst.HOUR_24_FORMAT);
+        slotData.startTime = formatDate(startTime.toString(),
+            format: DateFormatConst.HOUR_24_FORMAT);
         slotData.previousTimeSlot = startTime;
 
         int hour = startTime.hour;
@@ -231,7 +250,8 @@ class _SlotWidgetState extends State<SlotWidget> {
           return Container(
             padding: const EdgeInsets.all(16),
             width: context.width(),
-            decoration: boxDecorationWithRoundedCorners(backgroundColor: context.cardColor, borderRadius: radius()),
+            decoration: boxDecorationWithRoundedCorners(
+                backgroundColor: context.cardColor, borderRadius: radius()),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: categorizedSlots.entries.map((entry) {
@@ -247,24 +267,24 @@ class _SlotWidgetState extends State<SlotWidget> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
-                        childAspectRatio: 2.8,
+                        mainAxisExtent: 44,
                       ),
                       itemCount: sessionSlots.length,
                       itemBuilder: (context, index) {
                         SlotData timeSlot = sessionSlots[index];
 
-                        bool isSelected =
-                            selectedIndex == index &&
+                        bool isSelected = selectedIndex == index &&
                             selectedSession == timeSlot.sessionText;
 
-                        String formattedSelectedTime =
-                            widget.selectedTime != null
-                                ? formatTimeWithoutLeadingZero(widget.selectedTime!)
-                                : "";
+                        String formattedSelectedTime = widget.selectedTime !=
+                                null
+                            ? formatTimeWithoutLeadingZero(widget.selectedTime!)
+                            : "";
 
                         return SlotItemComponent(
                           selectedTime: formattedSelectedTime,
@@ -273,15 +293,17 @@ class _SlotWidgetState extends State<SlotWidget> {
                           selectedHorizontalDate: widget.selectedHorizontalDate,
                           isFromBooking: widget.isFromBooking,
                           onTap: () {
-                            if (timeSlot.slotAvailability(widget.selectedHorizontalDate)) {
+                            if (timeSlot.slotAvailability(
+                                widget.selectedHorizontalDate)) {
                               if (isSelected) {
                                 selectedIndex = -1;
                                 bookingRequestStore.setTimeInRequest('');
                               } else {
-                                bookingRequestStore
-                                    .setTimeInRequest(timeSlot.startTime.validate());
+                                bookingRequestStore.setTimeInRequest(
+                                    timeSlot.startTime.validate());
                                 selectedIndex = index;
-                                selectedSession = timeSlot.sessionText.validate();
+                                selectedSession =
+                                    timeSlot.sessionText.validate();
 
                                 if (widget.isFromQuickBooking) {
                                   finish(context, bookingRequestStore.time);

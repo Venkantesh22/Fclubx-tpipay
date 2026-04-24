@@ -14,7 +14,13 @@ class SlotItemComponent extends StatefulWidget {
   final String? selectedTime;
   final bool isFromBooking;
 
-  SlotItemComponent({required this.timeSlot, required this.isSelected, this.onTap, required this.selectedHorizontalDate, this.selectedTime, this.isFromBooking = false});
+  SlotItemComponent(
+      {required this.timeSlot,
+      required this.isSelected,
+      this.onTap,
+      required this.selectedHorizontalDate,
+      this.selectedTime,
+      this.isFromBooking = false});
 
   @override
   State<SlotItemComponent> createState() => _SlotItemComponentState();
@@ -23,14 +29,15 @@ class SlotItemComponent extends StatefulWidget {
 class _SlotItemComponentState extends State<SlotItemComponent> {
   @override
   Widget build(BuildContext context) {
-    final bool isAvailable = widget.timeSlot.slotAvailability(widget.selectedHorizontalDate);
+    final bool isAvailable =
+        widget.timeSlot.slotAvailability(widget.selectedHorizontalDate);
 
     return GestureDetector(
       onTap: () async {
         widget.onTap?.call();
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: widget.isSelected
@@ -43,23 +50,36 @@ class _SlotItemComponentState extends State<SlotItemComponent> {
             color: widget.isSelected
                 ? primaryColor
                 : isAvailable
-                    ? appStore.isDarkMode ? borderColor : appTextSecondaryColor
-                    : appStore.isDarkMode ? appTextSecondaryColor : borderColor,
+                    ? appStore.isDarkMode
+                        ? borderColor
+                        : appTextSecondaryColor
+                    : appStore.isDarkMode
+                        ? appTextSecondaryColor
+                        : borderColor,
             width: 0.5,
           ),
         ),
-        child: Text(
-          formatOnlyTime(context, startTime: widget.timeSlot.startTime),
-          style: primaryTextStyle(
-            size: 12,
-            weight: FontWeight.w600,
-            color: widget.isSelected
-                ? primaryColor
-                : isAvailable
-                    ? appStore.isDarkMode ? borderColor : appTextSecondaryColor
-                    : appStore.isDarkMode ? appTextSecondaryColor : borderColor,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            formatOnlyTime(context, startTime: widget.timeSlot.startTime),
+            maxLines: 1,
+            softWrap: false,
+            style: primaryTextStyle(
+              size: 12,
+              weight: FontWeight.w600,
+              color: widget.isSelected
+                  ? primaryColor
+                  : isAvailable
+                      ? appStore.isDarkMode
+                          ? borderColor
+                          : appTextSecondaryColor
+                      : appStore.isDarkMode
+                          ? appTextSecondaryColor
+                          : borderColor,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
       ),
     );
