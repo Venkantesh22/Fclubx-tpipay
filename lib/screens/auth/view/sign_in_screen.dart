@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frezka/main.dart';
 import 'package:frezka/screens/auth/auth_repository.dart';
+import 'package:frezka/screens/auth/model/user_data_model.dart';
 import 'package:frezka/screens/auth/view/forgot_password_screen.dart';
 import 'package:frezka/screens/auth/view/sign_up_screen.dart';
 import 'package:frezka/screens/dashboard/view/dashboard_screen.dart';
@@ -12,6 +13,7 @@ import 'package:frezka/utils/constants.dart';
 import 'package:frezka/utils/images.dart';
 import 'package:frezka/utils/model_keys.dart';
 import 'package:frezka/utils/notification_service.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:frezka/utils/custom_toast_widget.dart';
 
@@ -159,22 +161,53 @@ class _SignInScreenState extends State<SignInScreen> {
     });
   }
 
-  void googleSignIn() async {
-    appStore.setLoading(true);
-    await googleSignInAuthService.signInWithGoogle(context).then((value) async {
-      /// Social Login Api
-      await loginUser(value.toJson(), isSocialLogin: true).then((value) {
-        setValue(SharedPreferenceConst.IS_REMEMBERED, false);
-        onLoginSuccessRedirection();
-      }).catchError((e) {
-        appStore.setLoading(false);
-        ShowToast.showError(e, context: context);
-      });
-    }).catchError((e) {
-      log(e);
-      ShowToast.showError(e, context: context);
+  // void googleSignIn() async {
+  //   appStore.setLoading(true);
+  //   await googleSignInAuthService.signInWithGoogle(context).then((value) async {
+  //     /// Social Login Api
+  //     await loginUser(value.toJson(), isSocialLogin: true).then((value) {
+  //       setValue(SharedPreferenceConst.IS_REMEMBERED, false);
+  //       onLoginSuccessRedirection();
+  //     }).catchError((e) {
+  //       appStore.setLoading(false);
+  //       ShowToast.showError(e, context: context);
+  //     });
+  //   }).catchError((e) {
+  //     log(e);
+  //     ShowToast.showError(e, context: context);
+  //     appStore.setLoading(false);
+  //   });
+  // }
+  Future<void> googleSignIn() async {
+    try {
+      // 1. Start loading
+      appStore.setLoading(true);
+
+      // 2. Trigger the Google Sign-In prompt
+      final googleUser =
+          await googleSignInAuthService.signInWithGoogle(context);
+
+      // 3. Handle User Cancellation or Silent Failure
+      // If the picker closes and returns null, we stop here.
+      if (googleUser == null) {
+        log("Google Sign-In cancelled or returned null.");
+        return;
+      }
+
+      // 4. Social Login API Call
+      await loginUser(googleUser.toJson(), isSocialLogin: true);
+
+      // 5. On Success Redirection
+      setValue(SharedPreferenceConst.IS_REMEMBERED, false);
+      onLoginSuccessRedirection();
+    } catch (e) {
+      // 6. Handle Errors (This will catch API errors OR Firebase config errors)
+      log("Google Sign-In Exception: $e");
+      ShowToast.showError(e.toString(), context: context);
+    } finally {
+      // 7. ALWAYS hide the loading spinner, whether it succeeded or failed
       appStore.setLoading(false);
-    });
+    }
   }
 
   @override
