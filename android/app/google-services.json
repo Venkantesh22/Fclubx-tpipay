@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "1039210369432-mf9oqc5j5j3bo87kuuc9i84h5t451h4e.apps.googleusercontent.com",
+          "client_id": "1039210369432-md5q6oqe8pnb9p5o9svr1vvgje6ia4fm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.fclubxTpipayCompany1",
-            "certificate_hash": "7bee2aa2354c0883850bfaabaf2a8437eb066f37"
+            "certificate_hash": "abc7f860581150bf6994b108959a8cabe56599ac"
           }
         },
         {
